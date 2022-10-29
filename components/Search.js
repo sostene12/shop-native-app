@@ -6,8 +6,8 @@ import colors from '../colors';
 const Search = () => {
     return (
       <View style={styles.container}>
-        <Ionicons name='ios-search-outline' />
-        <TextInput placeholder='Search a product' />
+        <Ionicons name='ios-search-outline' size={22} />
+        <TextInput placeholder='Search a product' style={styles.input} />
       </View>
     )
 }
@@ -19,10 +19,13 @@ const styles=StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         alignSelf:'center',
-        backgroundColor:colors.black,
+        backgroundColor:colors.white,
         width:"95%",
-        paddingVertical:3,
+        paddingVertical:4,
         paddingHorizontal:10,
         borderRadius:18
+    },
+    input:{
+        paddingLeft:8
     }
 })

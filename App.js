@@ -1,4 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -57,7 +58,6 @@ export default function App() {
         {/* <Tab.Screen name='Order' component={Orders} /> */}
         <Tab.Screen name='Account' component={Account} />
       </Tab.Navigator>
-      <StatusBar />
     </NavigationContainer>
   );
 }
