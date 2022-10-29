@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from "react-native-vector-icons/Ionicons";
+
+import colors from './colors';
 
 // Screens
 import Home from './screens/Home';
@@ -40,13 +41,13 @@ export default function App() {
           return <Ionicons name={icon} size={size} color={color}/>
         },
         headerShown:false,
-        tabBarActiveTintColor:"whitesmoke",
-        tabBarInactiveTintColor:"#635147",
+        tabBarActiveTintColor:colors.white,
+        tabBarInactiveTintColor:colors.black,
         tabBarShowLabel:false,
         tabBarStyle:{
           padding:5,
           height:50,
-          backgroundColor:'#50c878'
+          backgroundColor:colors.green
         }
       })}
       
@@ -60,12 +61,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
