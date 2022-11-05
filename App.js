@@ -11,6 +11,7 @@ import Home from './screens/Home';
 import Cart from './screens/Cart';
 import Orders from './screens/Orders';
 import Account from './screens/Account';
+import Login from './screens/Login';
 
 const Tab = createBottomTabNavigator();
 
@@ -57,6 +58,7 @@ export default function App() {
         <Tab.Screen name='Cart' component={Cart} />
         {/* <Tab.Screen name='Order' component={Orders} /> */}
         <Tab.Screen name='Account' component={Account} />
+        <Tab.Screen name='Login' component={Login} />
       </Tab.Navigator>
     </NavigationContainer>
   );

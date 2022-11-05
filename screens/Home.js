@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
-import { View, Text ,StatusBar, StyleSheet,Platform,FlatList} from 'react-native';
+import { View ,StatusBar, StyleSheet,Platform,FlatList} from 'react-native';
 import { SafeAreaView } from 'react-navigation';
 
 import colors from '../colors';
@@ -37,7 +37,7 @@ const Home = () => {
   },[filteredItems])
   return (
     <View>
-        <StatusBar hidden={true} /> 
+        <StatusBar hidden={false} /> 
         <View >
         <Header />
         <Navigation filteredItems={filteredItems} />

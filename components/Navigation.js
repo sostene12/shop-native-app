@@ -11,8 +11,6 @@ const Navigation = ({filteredItems}) => {
         setSelected(item);
         filteredItems(item);
     }
-    console.log(selected);
-
 
     useEffect(() =>{
       setSelected('all')
