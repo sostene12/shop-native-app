@@ -15,7 +15,7 @@ SafeAreaView.setStatusBarHeight(0);
 
 const Home = () => {
   const [allProducts,setAllProducts] = useState([]);
-  const [filteredItems,setFilteredItems] = useState([]);
+  const [filterItems,setFilterItems] = useState([]);
 
   const getAllProducts = async () =>{
     try {
@@ -25,18 +25,25 @@ const Home = () => {
       console.log(error);
     }
   }
+
+  const filteredItems = (item) =>{
+    const filtes = allProducts.filter(product => product.categories.includes(item));
+    const filtering = item === 'all' ? allProducts : filtes;
+    setFilterItems(filtering);
+  }
+
   useEffect(() =>{
     getAllProducts();
-  },[])
+  },[filteredItems])
   return (
     <View>
         <StatusBar hidden={true} /> 
         <View >
         <Header />
-        <Navigation />
+        <Navigation filteredItems={filteredItems} />
         <Search />
         <View style={styles.products}>
-          <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
+          <FlatList data={filterItems} keyExtractor={(item) => item.id} renderItem={({item}) => (
             <Product item={item} />
           )} />
         </View>

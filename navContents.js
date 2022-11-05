@@ -1,7 +1,7 @@
 const NavContents = [
-    {id:1,title:'All'},
-    {id:2,title:'Phones'},
-    {id:3,title:'Chargers'},
+    {id:1,title:'all'},
+    {id:2,title:'phones'},
+    {id:3,title:'chargers'},
     {id:4,title:'laptop'}
 ];
 

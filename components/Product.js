@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text,Image,StyleSheet,TouchableOpacity } from 'react-native';
 import colors from '../colors';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Product = ({item}) => {
   return (
@@ -8,9 +9,19 @@ const Product = ({item}) => {
       <Image source={{uri:item.image}} style={styles.image} />
       <Text>{item.title}</Text>
       <Text>{item.description}</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text>Add to cart</Text>
-      </TouchableOpacity>
+      <Text>{item.categories[0]}</Text>
+      <View>
+        <Text>
+            Ratings: 
+            <Ionicons name='star-outline' color='yellow' />
+            <Ionicons name='star-outline' color='yellow' />
+            <Ionicons name='star-outline' color='yellow' />
+        </Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={{color:colors.white}}>Add to cart</Text>
+        </TouchableOpacity>
+      </View>
+     
     </View>
   )
 };
@@ -37,6 +48,8 @@ const styles = StyleSheet.create({
         paddingVertical:4,
         borderRadius:5,
         alignSelf:'flex-end',
-        marginVertical:5
+        marginVertical:5,
+        justifyContent:'center',
+        alignItems:'center'
     }
 })
