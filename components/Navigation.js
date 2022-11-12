@@ -5,7 +5,7 @@ import NavContents from '../navContents';
 import colors from '../colors';
 
 const Navigation = ({filteredItems}) => {
-    const [selected,setSelected] = useState('');
+    const [selected,setSelected] = useState('all');
 
     const handlePress = (item) =>{
         setSelected(item);
@@ -13,7 +13,8 @@ const Navigation = ({filteredItems}) => {
     }
 
     useEffect(() =>{
-      setSelected('all')
+      setSelected('all');
+      handlePress('all');
     },[]);
 
   return (

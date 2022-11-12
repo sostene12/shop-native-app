@@ -28,9 +28,8 @@ const Home = () => {
 
   const filteredItems = (item) =>{
     const filtes = allProducts.filter(product => product.categories.includes(item));
-    const filtering = item === 'all' ? allProducts : filtes;
-    setFilterItems(filtering);
-  }
+    return !filtes.length? setFilterItems(allProducts) : setFilterItems(filtes) ;
+  };
 
   useEffect(() =>{
     getAllProducts();
