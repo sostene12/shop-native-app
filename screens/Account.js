@@ -1,7 +1,12 @@
 import React,{useState} from 'react';
 import { View, Text,StatusBar,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Login from '../components/Login';
+import Signup from '../components/Signup';
 
 import colors from '../colors';
+
+const Tab = createMaterialTopTabNavigator();
 
 const Account = ({navigation}) => {
 
@@ -12,21 +17,9 @@ const Account = ({navigation}) => {
         backgroundColor={colors.green}
         />
         <View style={styles.container}>
-          <Text style={styles.title}>SignUp</Text>
-          <View>
-            <Text>Name</Text>
-            <TextInput style={styles.input} placeholder='name' />
-          </View>
-          <Text>email</Text>
-          <TextInput placeholder='name' />
-          <Text>Password</Text>
-          <TextInput placeholder='name' />
-          <TouchableOpacity>
-            <Text>Signup</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text>login</Text>
-          </TouchableOpacity>
+          
+          <Signup />
+          <Login />
         </View>
     </View>
   )
@@ -43,21 +36,8 @@ const styles = StyleSheet.create({
   container:{
     alignSelf:'center',
     justifyContent:'center',
-    backgroundColor:'pink',
     width:'95%',
     paddingHorizontal:15,
     paddingVertical:10
-  },
-  title:{
-    fontSize:20,
-    fontWeight:'bold',
-    borderBottomWidth:2,
-    borderBottomColor:'green'
-  },
-  input:{
-    paddingVertical:5,
-    borderColor:'white',
-    borderWidth:1,
-    paddingHorizontal:5,
   }
 })
