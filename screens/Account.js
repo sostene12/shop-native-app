@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
 import { View, Text,StatusBar,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 
 import colors from '../colors';
 
-const Tab = createMaterialTopTabNavigator();
+
 
 const Account = ({navigation}) => {
 

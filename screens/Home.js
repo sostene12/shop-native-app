@@ -1,7 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
-import { View ,StatusBar, StyleSheet,Platform,FlatList} from 'react-native';
-import { SafeAreaView } from 'react-navigation';
+import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList} from 'react-native';
+// import { SafeAreaView } from 'react-navigation';
 
 import colors from '../colors';
 
@@ -10,7 +10,7 @@ import Navigation from '../components/Navigation';
 import Search from '../components/Search';
 import Product from "../components/Product";
 
-SafeAreaView.setStatusBarHeight(0);
+// SafeAreaView.setStatusBarHeight(0);
 
 
 const Home = () => {
@@ -35,8 +35,11 @@ const Home = () => {
     getAllProducts();
   },[filteredItems])
   return (
-    <View>
-        <StatusBar hidden={false} /> 
+    <SafeAreaView>
+        <StatusBar 
+        barStyle='light-content'
+        backgroundColor={colors.green}
+          /> 
         <View >
         <Header />
         <Navigation filteredItems={filteredItems} />
@@ -47,7 +50,7 @@ const Home = () => {
           )} />
         </View>
         </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
