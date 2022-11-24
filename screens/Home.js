@@ -13,7 +13,7 @@ import Product from "../components/Product";
 SafeAreaView.setStatusBarHeight(0);
 
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [allProducts,setAllProducts] = useState([]);
   const [filterItems,setFilterItems] = useState([]);
 
@@ -39,11 +39,11 @@ const Home = () => {
         <StatusBar hidden={false} /> 
         <View >
         <Header />
-        <Navigation filteredItems={filteredItems} />
+        {/* <Navigation filteredItems={filteredItems} /> */}
         <Search />
         <View style={styles.products}>
-          <FlatList data={filterItems} keyExtractor={(item) => item.id} renderItem={({item}) => (
-            <Product item={item} />
+          <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
+            <Product item={item} navigation={navigation} />
           )} />
         </View>
         </View>

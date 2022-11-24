@@ -11,7 +11,11 @@ import Home from './screens/Home';
 import Cart from './screens/Cart';
 import Orders from './screens/Orders';
 import Account from './screens/Account';
-import Login from './screens/Login';
+import SingleProduct from './screens/SingleProduct';
+
+// components
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,6 +63,8 @@ export default function App() {
         {/* <Tab.Screen name='Order' component={Orders} /> */}
         <Tab.Screen name='Account' component={Account} />
         <Tab.Screen name='Login' component={Login} />
+        <Tab.Screen name='Signup' component={Signup} />
+        <Tab.Screen name='Product' component={SingleProduct} />
       </Tab.Navigator>
     </NavigationContainer>
   );

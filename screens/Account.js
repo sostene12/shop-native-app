@@ -6,6 +6,7 @@ import Signup from '../components/Signup';
 
 import colors from '../colors';
 
+
 const Tab = createMaterialTopTabNavigator();
 
 const Account = ({navigation}) => {
@@ -17,7 +18,6 @@ const Account = ({navigation}) => {
         backgroundColor={colors.green}
         />
         <View style={styles.container}>
-          
           <Signup />
           <Login />
         </View>
