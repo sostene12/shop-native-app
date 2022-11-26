@@ -18,9 +18,12 @@ const Signup = () => {
             <TextInput style={styles.input} placeholder='name' />
           </View>
           
-          <TouchableOpacity>
-            <Text>Signup</Text>
-          </TouchableOpacity>
+          <View style={styles.bottomCont}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.signup}>Signup</Text>
+            </TouchableOpacity>
+            <Text style={styles.login}>Login</Text>
+          </View>
     </View>
   )
 }
@@ -44,5 +47,25 @@ const styles = StyleSheet.create({
         borderColor:'green',
         borderWidth:1,
         paddingHorizontal:8,
+      },
+      bottomCont:{
+        flexDirection:'row',
+        alignItems:'center'
+      },
+      button:{
+        backgroundColor:'green',
+        width:'30%',
+        paddingVertical:5,
+        borderRadius:5,
+        marginTop:15
+      },
+      signup:{
+        color:'white',
+        textAlign:'center'
+      },
+      login:{
+        alignContent:'center',
+        color:"blue",
+        
       }
 });

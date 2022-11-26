@@ -19,7 +19,6 @@ const Account = ({navigation}) => {
         />
         <View style={styles.container}>
           <Signup />
-          <Login />
         </View>
     </View>
   )

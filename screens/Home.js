@@ -19,7 +19,7 @@ const Home = ({navigation}) => {
 
   const getAllProducts = async () =>{
     try {
-      const res = await axios.get('https://electronic-backend-ji2zaqxur-sostene12.vercel.app/api/products');
+      const res = await axios.get('https://electronic-shop.onrender.com/api/products');
       setAllProducts(res.data);
     } catch (error) {
       console.log(error);
