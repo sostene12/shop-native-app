@@ -13,13 +13,13 @@ import Product from "../components/Product";
 // SafeAreaView.setStatusBarHeight(0);
 
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [allProducts,setAllProducts] = useState([]);
   const [filterItems,setFilterItems] = useState([]);
 
   const getAllProducts = async () =>{
     try {
-      const res = await axios.get('https://electronic-backend-ji2zaqxur-sostene12.vercel.app/api/products');
+      const res = await axios.get('https://electronic-shop.onrender.com/api/products');
       setAllProducts(res.data);
     } catch (error) {
       console.log(error);
@@ -42,11 +42,11 @@ const Home = () => {
           /> 
         <View >
         <Header />
-        <Navigation filteredItems={filteredItems} />
+        {/* <Navigation filteredItems={filteredItems} /> */}
         <Search />
         <View style={styles.products}>
-          <FlatList data={filterItems} keyExtractor={(item) => item.id} renderItem={({item}) => (
-            <Product item={item} />
+          <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
+            <Product item={item} navigation={navigation} />
           )} />
         </View>
         </View>

@@ -3,13 +3,15 @@ import { View, Text,Image,StyleSheet,TouchableOpacity } from 'react-native';
 import colors from '../colors';
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Product = ({item}) => {
+const Product = ({item,navigation}) => {
+
   return (
-    <View key={item.id} style={styles.productContainer}>
+    <TouchableOpacity key={item.id} style={styles.productContainer} onPress={() => navigation.navigate('Product',{id:item._id})} >
       <Image source={{uri:item.image}} style={styles.image} />
-      <Text>{item.title}</Text>
-      <Text>{item.description}</Text>
-      <Text>{item.categories[0]}</Text>
+      <View style={styles.title}>
+        <Text style={styles.name}>{item.title}</Text>
+        <Text style={styles.name}>${item.price}</Text>
+      </View>
       <View>
         <Text>
             Ratings: 
@@ -18,11 +20,11 @@ const Product = ({item}) => {
             <Ionicons name='star-outline' color='yellow' />
         </Text>
         <TouchableOpacity style={styles.button}>
-          <Text style={{color:colors.white}}>Add to cart</Text>
+          <Text style={{color:colors.white}}>+</Text>
         </TouchableOpacity>
       </View>
      
-    </View>
+    </TouchableOpacity>
   )
 };
 
@@ -31,19 +33,28 @@ export default Product;
 const styles = StyleSheet.create({
     productContainer:{
         width:'100%',
-        backgroundColor:colors.white,
+        backgroundColor:"#B6CFB5",
         marginVertical:3,
         borderRadius:8,
-        padding:10
+        paddingHorizontal:15,
+        paddingVertical:5,
+        borderRadius:12,
     },
     image:{
         width: '50%',
          height: 180 ,
          alignSelf:'center'
     },
+    title:{
+      flexDirection:'row',
+      justifyContent:'space-between',
+      paddingBottom:5
+    },
+    name:{
+      fontWeight:'bold'
+    },
     button:{
         backgroundColor:colors.green,
-        width:'35%',
         paddingHorizontal:8,
         paddingVertical:4,
         borderRadius:5,
