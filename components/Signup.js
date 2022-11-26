@@ -1,9 +1,16 @@
-import { View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,Pressable } from 'react-native';
+import ToastManager, { Toast } from "toastify-react-native";
 
-const Signup = () => {
+const Signup = ({navigation}) => {
+  const showToast = () =>{
+    Toast.success('please check your email to verify.','top');
+  }
   return (
     <View>
+      <View style={styles.toast}>
+        <ToastManager style={{width:"100%",}} />
+      </View>
       <Text style={styles.title}>SignUp</Text>
           <View>
             <Text style={styles.label}>Name</Text>
@@ -19,10 +26,12 @@ const Signup = () => {
           </View>
           
           <View style={styles.bottomCont}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={showToast}>
               <Text style={styles.signup}>Signup</Text>
             </TouchableOpacity>
-            <Text style={styles.login}>Login</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.login}>Login</Text>
+            </TouchableOpacity>
           </View>
     </View>
   )
@@ -32,6 +41,11 @@ export default Signup;
 
 
 const styles = StyleSheet.create({
+  // toast:{
+  //   position:"relative",
+  //   top:10,
+  //   left:0
+  // },
     title:{
         fontSize:20,
         fontWeight:'bold',

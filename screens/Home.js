@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
-import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList} from 'react-native';
+import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList,ActivityIndicator} from 'react-native';
+import LoaderKit from 'react-native-loader-kit';
 // import { SafeAreaView } from 'react-navigation';
 
 import colors from '../colors';
@@ -16,14 +17,18 @@ import Product from "../components/Product";
 const Home = ({navigation}) => {
   const [allProducts,setAllProducts] = useState([]);
   const [filterItems,setFilterItems] = useState([]);
+  const [loading,setLoading] = useState(false);
 
   const getAllProducts = async () =>{
+  
     try {
       const res = await axios.get('https://electronic-shop.onrender.com/api/products');
       setAllProducts(res.data);
+       
     } catch (error) {
       console.log(error);
     }
+   
   }
 
   const filteredItems = (item) =>{
@@ -32,7 +37,9 @@ const Home = ({navigation}) => {
   };
 
   useEffect(() =>{
+    setLoading(true);
     getAllProducts();
+    setLoading(false);
   },[filteredItems])
   return (
     <SafeAreaView>
@@ -44,11 +51,14 @@ const Home = ({navigation}) => {
         <Header />
         {/* <Navigation filteredItems={filteredItems} /> */}
         <Search />
-        <View style={styles.products}>
+       
+        {loading && <ActivityIndicator size="large" color="#00ff00" />}
+          <View style={styles.products}>
           <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
             <Product item={item} navigation={navigation} />
           )} />
         </View>
+        
         </View>
     </SafeAreaView>
   )
