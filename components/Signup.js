@@ -1,8 +1,30 @@
-import React from 'react';
-import { View, Text,StyleSheet,TextInput,TouchableOpacity,Pressable } from 'react-native';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
 import ToastManager, { Toast } from "toastify-react-native";
 
 const Signup = ({navigation}) => {
+const [firstName,setFirstName] = useState('');
+const [lastName,setLastName] = useState('');
+const [email,setEmail] = useState('');
+const [password,setPassword] = useState('');
+
+const role = "client"
+const data = {firstName,lastName,email,password,role}
+
+const register = async() =>{
+  try {
+    const res = await axios.post('https://electronic-shop.onrender.com/api/auth/signup',data);
+    console.log(res.data);
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
   const showToast = () =>{
     Toast.success('please check your email to verify.','top');
   }
@@ -13,20 +35,38 @@ const Signup = ({navigation}) => {
       </View>
       <Text style={styles.title}>SignUp</Text>
           <View>
-            <Text style={styles.label}>Name</Text>
-            <TextInput style={styles.input} placeholder='name' />
+            <Text style={styles.label}>First Name</Text>
+            <TextInput style={styles.input} 
+            placeholder='First Name'
+            value={firstName}
+            onChangeText={(value) => setFirstName(value)}
+             />
+            <Text style={styles.label}>Last Name</Text>
+            <TextInput style={styles.input} 
+            placeholder='Last Name'
+            value={lastName}
+            onChangeText={(value) => setLastName(value)}
+             />
           </View>
           <View>
             <Text style={styles.label}>email</Text>
-            <TextInput style={styles.input}  placeholder='name' />
+            <TextInput style={styles.input}  
+            placeholder='Email'
+            value={email}
+            onChangeText={(value) => setEmail(value)}
+             />
           </View>
           <View>
             <Text style={styles.label}>Password</Text>
-            <TextInput style={styles.input} placeholder='name' />
+            <TextInput style={styles.input} 
+            placeholder='Password'
+            value={password}
+            onChangeText={(value) => setPassword(value)}
+             />
           </View>
           
           <View style={styles.bottomCont}>
-            <TouchableOpacity style={styles.button} onPress={showToast}>
+            <TouchableOpacity style={styles.button} onPress={() => register()}>
               <Text style={styles.signup}>Signup</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
