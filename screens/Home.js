@@ -42,7 +42,7 @@ const Home = ({navigation}) => {
     setLoading(false);
   },[filteredItems])
   return (
-    <SafeAreaView>
+    <View>
         <StatusBar 
         barStyle='light-content'
         backgroundColor={colors.green}
@@ -60,7 +60,7 @@ const Home = ({navigation}) => {
         </View>
         
         </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

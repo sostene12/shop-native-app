@@ -2,12 +2,20 @@ import React from 'react';
 import { View, Text,Image,StyleSheet,TouchableOpacity } from 'react-native';
 import colors from '../colors';
 import Ionicons from "react-native-vector-icons/Ionicons";
+// redux
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../redux/cartSlice';
 
 const Product = ({item,navigation}) => {
+  const dispatch = useDispatch();;
+
+  const addToCart = (product) =>{
+    dispatch(addProduct({...product}))
+  }
 
   return (
-    <TouchableOpacity key={item.id} style={styles.productContainer} onPress={() => navigation.navigate('Product',{id:item._id})} >
-      <Image source={{uri:item.image}} style={styles.image} />
+    <View key={item.id} style={styles.productContainer}  >
+      <Image source={{uri:item.image}} style={styles.image} onPress={() => navigation.navigate('Product',{id:item._id})} />
       <View style={styles.title}>
         <Text style={styles.name}>{item.title}</Text>
         <Text style={styles.name}>${item.price}</Text>
@@ -19,12 +27,12 @@ const Product = ({item,navigation}) => {
             <Ionicons name='star-outline' color='yellow' />
             <Ionicons name='star-outline' color='yellow' />
         </Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{color:colors.white}}>+</Text>
+        <TouchableOpacity style={styles.button} onPress={() => addToCart(item)}>
+          <Text style={{color:colors.white}}>addToCart</Text>
         </TouchableOpacity>
       </View>
      
-    </TouchableOpacity>
+    </View>
   )
 };
 

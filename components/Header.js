@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet,Image } from 'react-native';
+import { View, Text, StyleSheet,Image,Platform,StatusBar } from 'react-native';
 import React from 'react';
 
 import colors from '../colors';
@@ -22,7 +22,7 @@ export default Header;
 const styles = StyleSheet.create({
     container:{
         backgroundColor:colors.black,
-        paddingVertical:12,
+        paddingVertical:Platform.OS =='ios' ? StatusBar.currentHeight + 16: 12,
         paddingHorizontal:8,
         flexDirection:'row',
         justifyContent:'space-between',
