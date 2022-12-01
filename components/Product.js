@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text,Image,StyleSheet,TouchableOpacity } from 'react-native';
 import colors from '../colors';
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux';
 import { addProduct } from '../redux/cartSlice';
 
 const Product = ({item,navigation}) => {
-  const dispatch = useDispatch();;
+  const dispatch = useDispatch();
+  const [quantity,setQuantity] = useState(0);
 
   const addToCart = (product) =>{
     dispatch(addProduct({...product}))
