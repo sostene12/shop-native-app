@@ -49,7 +49,7 @@ const Home = ({navigation}) => {
           /> 
         <View >
         <Header />
-        {/* <Navigation filteredItems={filteredItems} /> */}
+        <Navigation filteredItems={filteredItems} />
         <Search />
        
         {loading && <ActivityIndicator size="large" color="#00ff00" />}

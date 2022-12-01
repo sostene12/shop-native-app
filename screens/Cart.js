@@ -8,9 +8,10 @@ import { useSelector } from 'react-redux';
 
 
 const Cart = () => {
-  console.log(StatusBar.currentHeight)
-  const cart = useSelector(state => state.cart);
-  console.log(cart.products)
+  // console.log(StatusBar.currentHeight)
+  const cart = useSelector(state=> state.cart);
+  console.log(cart)
+  console.log(cart.length);
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -20,14 +21,16 @@ const Cart = () => {
          />
         <Text>Cart</Text>
         <View style={styles.product}>
-          {cart.products.map(product => (
+          {cart.map(product => (
             <View>
-            <Image source={{uri:product.image}} resizeMode="contain"  />
+            <Image source={{uri:product.image}} resizeMode="contain" style={{width:50,height:50}} />
             <Text>{product.title}</Text>
+            <Text> {product.total}</Text>
+             <Text> {product.quantity}</Text>
             </View>
+          
           ))}
-         <Text> {cart.total}</Text>
-         <Text> {cart.quantity}</Text>
+        
         </View>
       </SafeAreaView>
     </View>
@@ -41,7 +44,6 @@ const styles = StyleSheet.create({
     paddingHorizontal:10
   },
   product:{
-    // flexDirection:'row',
-    backgroundColor:"blue"
+    flexDirection:'row',
   }
 })

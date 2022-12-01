@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Provider } from "react-redux";
+import { Provider,useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -27,7 +27,8 @@ const Tab = createBottomTabNavigator();
 // const badgeCount = 5;
 
 export default function App() {
-  const badgeCount = 5;
+  // const cart = useSelector(state=> state.cart);
+  const badgeCount = 3;
   return (
     <Provider store={store}>
       <NavigationContainer>

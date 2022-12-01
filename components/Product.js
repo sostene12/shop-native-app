@@ -8,15 +8,20 @@ import { addProduct } from '../redux/cartSlice';
 
 const Product = ({item,navigation}) => {
   const dispatch = useDispatch();
-  const [quantity,setQuantity] = useState(0);
+  const [quantity,setQuantity] = useState(1)
 
   const addToCart = (product) =>{
-    dispatch(addProduct({...product}))
+    // let quantity = quantity;
+    let total = product.price * quantity
+    let newProduct = {...product,quantity,total}
+    dispatch(addProduct(newProduct))
   }
 
   return (
     <View key={item.id} style={styles.productContainer}  >
-      <Image source={{uri:item.image}} style={styles.image} onPress={() => navigation.navigate('Product',{id:item._id})} />
+      <TouchableOpacity onPress={() => navigation.navigate('Product',{id:item._id})}>
+         <Image source={{uri:item.image}} style={styles.image}  />
+      </TouchableOpacity>
       <View style={styles.title}>
         <Text style={styles.name}>{item.title}</Text>
         <Text style={styles.name}>${item.price}</Text>
