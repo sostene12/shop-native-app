@@ -22,9 +22,10 @@ const Home = ({navigation}) => {
   const getAllProducts = async () =>{
   
     try {
+      setLoading(true);
       const res = await axios.get('https://electronic-shop.onrender.com/api/products');
       setAllProducts(res.data);
-       
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -37,10 +38,10 @@ const Home = ({navigation}) => {
   };
 
   useEffect(() =>{
-    setLoading(true);
+   
     getAllProducts();
-    setLoading(false);
-  },[filteredItems])
+  
+  },[])
   return (
     <View>
         <StatusBar 
@@ -52,12 +53,12 @@ const Home = ({navigation}) => {
         <Navigation filteredItems={filteredItems} />
         <Search />
        
-        {loading && <ActivityIndicator size="large" color="#00ff00" />}
+        {loading ?  <ActivityIndicator size="large" color="#00ff00" />: (
           <View style={styles.products}>
           <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
             <Product item={item} navigation={navigation} />
           )} />
-        </View>
+        </View>)}
         
         </View>
     </View>

@@ -3,12 +3,18 @@ import { View, Text,Image,StyleSheet,TouchableOpacity } from 'react-native';
 import colors from '../colors';
 import Ionicons from "react-native-vector-icons/Ionicons";
 // redux
-import { useDispatch } from 'react-redux';
+import { createSelector } from '@reduxjs/toolkit';
+import { useDispatch, useSelector } from 'react-redux';
 import { addProduct } from '../redux/cartSlice';
 
 const Product = ({item,navigation}) => {
   const dispatch = useDispatch();
-  const [quantity,setQuantity] = useState(1)
+  const [quantity] = useState(1)
+
+  // const cart = useSelector(state => state.cart);
+
+  // const ProductSelector = createSelector(state => state.cart);
+  // console.log("rome",ProductSelector);
 
   const addToCart = (product) =>{
     // let quantity = quantity;

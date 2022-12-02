@@ -14,8 +14,10 @@ const SingleProduct = ({route,navigation}) => {
   const getProduct = async () =>{
    
     try {
+      setLoading(true)
       const res = await axios.get(`https://electronic-shop.onrender.com/api/products/${id}`);
       setProduct(res.data);
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
@@ -24,9 +26,7 @@ const SingleProduct = ({route,navigation}) => {
   console.log(product);
 
   useEffect(() =>{
-    setLoading(true)
     getProduct();
-    setLoading(false);
   },[])
 
   return (
@@ -34,7 +34,8 @@ const SingleProduct = ({route,navigation}) => {
        <StatusBar
         hidden
         />
-        {loading && <ActivityIndicator size="large" color="#00ff00" />}
+        {loading ? <ActivityIndicator size="large" color="#00ff00" /> : 
+        <>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name='chevron-back-circle-sharp' size={30}  color={colors.green} />
         </TouchableOpacity>
@@ -43,7 +44,7 @@ const SingleProduct = ({route,navigation}) => {
       <Text>{product.description}</Text>
       <TouchableOpacity style={styles.button}>
         <Text style={styles.btnText}>Buy</Text>
-      </TouchableOpacity>
+      </TouchableOpacity></>}
     </View>
   )
 }
