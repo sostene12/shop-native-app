@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
 import ToastManager, { Toast } from "toastify-react-native";
 import { useNavigation } from '@react-navigation/native';
 
@@ -35,6 +35,7 @@ const register = async() =>{
       <View style={styles.toast}>
         <ToastManager style={{width:"100%",}} />
       </View>
+      <Image source={require("../assets/iconbg.png")} resizeMode='cover' style={styles.image} />
       <Text style={styles.title}>SignUp</Text>
           <View>
             <Text style={styles.label}>First Name</Text>
@@ -93,6 +94,11 @@ const styles = StyleSheet.create({
     width:"80%",
     alignSelf:'center',
     justifyContent:'center'
+  },
+  image:{
+    width:80,
+    height:80,
+    alignSelf:'center'
   },
     title:{
         fontSize:20,

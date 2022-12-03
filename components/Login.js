@@ -1,26 +1,47 @@
-import { View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native'
-import React from 'react'
-import Signup from './Signup';
+import React, { useState } from 'react';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const Login = () => {
   const navigation = useNavigation();
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const login = async () =>{
+    try {
+      const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login');
+      const data = res.data;
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <View style={styles.container}>
+        <Image source={require("../assets/iconbg.png")} resizeMode='cover' style={styles.image} />
       <Text style={styles.title}>Login</Text>
           <View>
             <Text style={styles.label}>email</Text>
-            <TextInput style={styles.input}  placeholder='name' />
+            <TextInput 
+            style={styles.input} 
+             placeholder='Eamil' 
+             value={email}
+             onChangeText={(value) => setEmail(value)}
+             />
           </View>
           <View>
             <Text style={styles.label}>Password</Text>
-            <TextInput style={styles.input} placeholder='name' />
+            <TextInput 
+            style={styles.input}
+             placeholder='Password'
+             value={password}
+             onChangeText={(value) => setPassword(value)}
+              />
           </View>
           <View style={styles.forgot}>
             <Text style={styles.textForgot}>Forgot Password</Text>
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.loginButton}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => login()}>
               <Text style={styles.login}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
@@ -36,11 +57,17 @@ export default Login;
 
 
 const styles = StyleSheet.create({
+
   container:{
     flex:1,
     width:"80%",
     alignSelf:'center',
     justifyContent:'center'
+  },
+  image:{
+    width:80,
+    height:80,
+    alignSelf:'center'
   },
     title:{
         fontSize:20,
