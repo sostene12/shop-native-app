@@ -38,9 +38,7 @@ const Home = ({navigation}) => {
   };
 
   useEffect(() =>{
-   
     getAllProducts();
-  
   },[])
   return (
     <View>

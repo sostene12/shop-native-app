@@ -13,6 +13,7 @@ import Cart from "./Cart";
 import Orders from "./Orders";
 import Account from "./Account";
 import SingleProduct from "./SingleProduct";
+import Payment from './Payment';
 
 // components
 import Login from "../components/Login";
@@ -25,9 +26,10 @@ const MainScreen = () => {
       console.log(cart)
     const badgeCount = cart;
   return (
-    <NavigationContainer>
+    <NavigationContainer >
         <Tab.Navigator
           initialRouteName="Home"
+          
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let icon;
@@ -35,16 +37,16 @@ const MainScreen = () => {
 
               if (routeName === "Home") {
                 icon = focused ? "home" : "home-outline";
-                size = focused ? 32 : 30;
+                size = focused ? 34 : 32;
               } else if (routeName === "Cart") {
                 icon = focused ? "cart" : "cart-outline";
-                size = focused ? 32 : 30;
+                size = focused ? 34 : 32;
               } else if (routeName === "Account") {
                 icon = focused ? "person-circle" : "person-circle-outline";
-                size = focused ? 32 : 30;
+                size = focused ? 34 : 32;
               } else if (routeName === "Orders") {
-                icon = focused ? "ios-basket" : "ios-basket-outline";
-                size = focused ? 32 : 30;
+                icon = focused ? "gift" : "gift-outline";
+                size = focused ? 34 : 32;
               }
               return (
                 <View>
@@ -66,19 +68,19 @@ const MainScreen = () => {
             tabBarShowLabel: false,
             tabBarStyle: {
               paddingBottom: 15,
-              padding: 10,
+              padding: 15,
               height: 50,
-              alignItems: "center",
               height: 65,
               backgroundColor: colors.green,
             },
           })}
         >
-          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Home" component={Home}   />
           <Tab.Screen name="Cart" component={Cart} />
-          {/* <Tab.Screen name='Order' component={Orders} /> */}
+          <Tab.Screen name='Orders' component={Orders} />
           <Tab.Screen name="Account" component={Account} />
           <Tab.Screen name="Login" component={Login} />
+          <Tab.Screen name="Payment" component={Payment} />
           <Tab.Screen name="Signup" component={Signup} />
           <Tab.Screen name="Product" component={SingleProduct} />
         </Tab.Navigator>
