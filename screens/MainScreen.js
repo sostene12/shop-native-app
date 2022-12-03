@@ -49,7 +49,7 @@ const MainScreen = () => {
                 size = focused ? 34 : 32;
               }
               return (
-                <View>
+                <View >
                   <Ionicons name={icon} size={size} color={color} />
                   {badgeCount && routeName === "Cart"? (
                     <View

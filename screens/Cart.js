@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform, StatusBar,SafeAreaView,Image,TouchableOpacity } from 'react-native';
-import { Constants } from 'expo-constants';
 
 import { useSelector } from 'react-redux';
 import colors from '../colors';

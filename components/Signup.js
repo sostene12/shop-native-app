@@ -2,8 +2,10 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { View, Text,StyleSheet,TextInput,TouchableOpacity } from 'react-native';
 import ToastManager, { Toast } from "toastify-react-native";
+import { useNavigation } from '@react-navigation/native';
 
-const Signup = ({navigation}) => {
+const Signup = () => {
+  const navigation = useNavigation()
 const [firstName,setFirstName] = useState('');
 const [lastName,setLastName] = useState('');
 const [email,setEmail] = useState('');
@@ -29,7 +31,7 @@ const register = async() =>{
     Toast.success('please check your email to verify.','top');
   }
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.toast}>
         <ToastManager style={{width:"100%",}} />
       </View>
@@ -65,8 +67,8 @@ const register = async() =>{
              />
           </View>
           
-          <View style={styles.bottomCont}>
-            <TouchableOpacity style={styles.button} onPress={() => register()}>
+          <View style={styles.buttons}>
+            <TouchableOpacity style={styles.signupButton} onPress={() => register()}>
               <Text style={styles.signup}>Signup</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
@@ -86,6 +88,12 @@ const styles = StyleSheet.create({
   //   top:10,
   //   left:0
   // },
+  container:{
+    flex:1,
+    width:"80%",
+    alignSelf:'center',
+    justifyContent:'center'
+  },
     title:{
         fontSize:20,
         fontWeight:'bold',
@@ -102,24 +110,26 @@ const styles = StyleSheet.create({
         borderWidth:1,
         paddingHorizontal:8,
       },
-      bottomCont:{
+      buttons:{
         flexDirection:'row',
-        alignItems:'center'
+        alignItems:'center',
+        marginVertical:10
       },
-      button:{
+      signupButton:{
         backgroundColor:'green',
-        width:'30%',
         paddingVertical:5,
-        borderRadius:5,
-        marginTop:15
+        paddingHorizontal:35,
+        borderRadius:8
       },
       signup:{
         color:'white',
-        textAlign:'center'
+        textAlign:'center',
+        fontWeight:'bold'
       },
       login:{
-        alignContent:'center',
-        color:"blue",
-        
+        paddingHorizontal:10,
+        fontWeight:'bold',
+        color:'blue',
+        textDecorationLine:'underline',
       }
 });

@@ -2,12 +2,14 @@ import React,{useEffect, useState} from 'react';
 import { View, Text,ActivityIndicator,StatusBar,StyleSheet,TouchableOpacity,Image } from 'react-native';
 import axios from 'axios';
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch } from 'react-redux';
 
 import colors from '../colors';
 
 const SingleProduct = ({route,navigation}) => {
   const id = route.params.id;
   console.log(id);
+  const dispatch = useDispatch();
   const [product,setProduct] = useState({});
   const [loading,setLoading] = useState(false);
 
@@ -42,8 +44,8 @@ const SingleProduct = ({route,navigation}) => {
         <Image source={{uri:product?.image}} style={styles.image}  />
         <Text style={styles.title}>{product.title}</Text>
       <Text>{product.description}</Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.btnText}>Buy</Text>
+      <TouchableOpacity style={styles.button} >
+        <Text style={styles.btnText}>Add to Cart</Text>
       </TouchableOpacity></>}
     </View>
   )
