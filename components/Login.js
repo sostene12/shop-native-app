@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
+import { login } from '../redux/apiCalls';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
   const navigation = useNavigation();
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const login = async () =>{
-    try {
-      const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login');
-      const data = res.data;
-    } catch (error) {
-      console.log(error)
-    }
+  const {isFetching,error} = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const handleLogin = () =>{
+    const user = {
+      username:email,
+      password:password
+    };
+    login(dispatch,user);
   }
   return (
     <View style={styles.container}>
@@ -41,7 +43,7 @@ const Login = () => {
             <Text style={styles.textForgot}>Forgot Password</Text>
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.loginButton} onPress={() => login()}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => handleLogin()}>
               <Text style={styles.login}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
