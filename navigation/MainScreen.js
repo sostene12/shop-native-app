@@ -8,16 +8,10 @@ import { useSelector } from 'react-redux';
 import colors from "../colors";
 
 // Screens
-import Home from "./Home";
-import Cart from "./Cart";
-import Orders from "./Orders";
-import Account from "./Account";
-import SingleProduct from "./SingleProduct";
-import Payment from './Payment';
-
-// components
-import Login from "../components/Login";
-import Signup from "../components/Signup";
+import Home from "./screens/Home";
+import Cart from './screens/Cart';
+import Orders from './screens/Orders';
+import Account from "./screens/Account"
 
 const Tab = createBottomTabNavigator();
 
@@ -26,10 +20,8 @@ const MainScreen = () => {
       console.log(cart)
     const badgeCount = cart;
   return (
-    <NavigationContainer >
         <Tab.Navigator
           initialRouteName="Home"
-          
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let icon;
@@ -79,12 +71,7 @@ const MainScreen = () => {
           <Tab.Screen name="Cart" component={Cart} />
           <Tab.Screen name='Orders' component={Orders} />
           <Tab.Screen name="Account" component={Account} />
-          <Tab.Screen name="Login" component={Login} />
-          <Tab.Screen name="Payment" component={Payment} />
-          <Tab.Screen name="Signup" component={Signup} />
-          <Tab.Screen name="Product" component={SingleProduct} />
         </Tab.Navigator>
-      </NavigationContainer>
   )
 }
 

@@ -2,10 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform, StatusBar,SafeAreaView,Image,TouchableOpacity } from 'react-native';
 
 import { useSelector } from 'react-redux';
-import colors from '../colors';
+import colors from '../../colors';
+
+import { useNavigation } from '@react-navigation/native';
 
 
-const Cart = ({navigation}) => {
+const Cart = () => {
+  const navigation = useNavigation();
   const cart = useSelector(state=> state.cart);
   console.log(cart)
   console.log(cart.length);

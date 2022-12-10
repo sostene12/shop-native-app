@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import React from "react";
 import { Provider} from "react-redux";
-import MainScreen from "./screens/MainScreen";
+import AllScreens from "./navigation/AllScreens";
 import store from "./redux/store"
 
 export default function App() {
@@ -9,7 +9,7 @@ export default function App() {
   const badgeCount = 3;
   return (
     <Provider store={store}>
-      <MainScreen />
+      <AllScreens />
     </Provider>
   );
 }

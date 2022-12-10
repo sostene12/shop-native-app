@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import {PUBLISHABLE_KEY} from '@env';
-import PaymentComponent from '../components/PaymentComponent';
+import PaymentComponent from '../../components/PaymentComponent';
 
 
 const Payment = ({route}) => {
@@ -19,4 +19,4 @@ const Payment = ({route}) => {
   )
 }
 
-export default Payment
+export default Payment;

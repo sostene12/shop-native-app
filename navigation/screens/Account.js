@@ -1,8 +1,8 @@
 import React from 'react';
 import { View,StatusBar,StyleSheet } from 'react-native';
 
-import Login from '../components/Login';
-import colors from '../colors';
+import Login from '../../components/Login';
+import colors from '../../colors';
 
 const Account = () => {
   return (

@@ -1,23 +1,25 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList,ActivityIndicator} from 'react-native';
-import LoaderKit from 'react-native-loader-kit';
-// import { SafeAreaView } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 
-import colors from '../colors';
+import colors from '../../colors';
 
-import Header from '../components/Header';
-import Navigation from '../components/Navigation';
-import Search from '../components/Search';
-import Product from "../components/Product";
+import Header from '../../components/Header';
+import Navigation from '../../components/Navigation';
+import Search from '../../components/Search';
+import Product from "../../components/Product";
 
 // SafeAreaView.setStatusBarHeight(0);
 
 
-const Home = ({navigation}) => {
+const Home = () => {
+  const navigation = useNavigation();
   const [allProducts,setAllProducts] = useState([]);
   const [filterItems,setFilterItems] = useState([]);
   const [loading,setLoading] = useState(false);
+
+
 
   const getAllProducts = async () =>{
   

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch } from 'react-redux';
 
-import colors from '../colors';
+import colors from '../../colors';
 
 const SingleProduct = ({route,navigation}) => {
   const id = route.params.id;

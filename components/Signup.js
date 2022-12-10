@@ -23,7 +23,7 @@ const register = async() =>{
     setEmail('');
     setPassword('');
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
