@@ -4,24 +4,19 @@ import colors from '../colors';
 import Ionicons from "react-native-vector-icons/Ionicons";
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../redux/cartSlice';
+import { addProduct } from '../redux/cart/cartSlice';
 
 const Product = ({item,navigation}) => {
   const dispatch = useDispatch();
-  const [quantity] = useState(1)
+
+  // console.log(item);
 
   const cart = useSelector(state => state.cart);
 
-  // const ProductSelector = createSelector(state => state.cart);
-  // console.log("rome",ProductSelector);
-
-  const addToCart = (product) =>{
-    // let quantity = quantity;
-    let total = product.price * quantity
-    let newProduct = {...product,quantity,total}
-    dispatch(addProduct(newProduct));
-    console.log("product added");
-  }
+  // const addToCart = (product) =>{
+  //   dispatch(addProduct({...product}));
+  //   console.log("product added");
+  // }
 
   return (
     <View key={item.id} style={styles.productContainer}  >
@@ -39,7 +34,7 @@ const Product = ({item,navigation}) => {
             <Ionicons name='star-outline' color='yellow' />
             <Ionicons name='star-outline' color='yellow' />
         </Text>
-        <TouchableOpacity style={styles.button} onPress={() => addToCart(item)}>
+        <TouchableOpacity style={styles.button} onPress={() => dispatch(addProduct(item))}>
           <Text style={{color:colors.white}}>addToCart</Text>
         </TouchableOpacity>
       </View>

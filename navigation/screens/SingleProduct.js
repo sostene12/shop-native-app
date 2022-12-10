@@ -3,7 +3,7 @@ import { View, Text,ActivityIndicator,StatusBar,StyleSheet,TouchableOpacity,Imag
 import axios from 'axios';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../redux/cartSlice';
+import { addProduct } from '../../redux/cart/cartSlice';
 
 import colors from '../../colors';
 import { useNavigation } from '@react-navigation/native';

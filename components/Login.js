@@ -3,7 +3,6 @@ import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 import { login } from '../redux/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -11,20 +10,12 @@ const Login = () => {
   const [password,setPassword] = useState('');
   const {isFetching,error} = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const handleLogin = async () =>{
+  const handleLogin = () =>{
     const user = {
       username:email,
       password:password
     };
-    try {
-      const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login',user);
-      console.log(res.data);
-      // dispatch(loginSuccess(res.data));
-  } catch (error) {
-      console.log(error.message);
-      // dispatch(loginFailure())
-  }
-    // login(dispatch,user);
+    login(dispatch,user);
   }
   return (
     <View style={styles.container}>

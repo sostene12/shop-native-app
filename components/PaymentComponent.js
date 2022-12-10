@@ -3,9 +3,9 @@ import { View, Text,TextInput,Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useStripe } from '@stripe/stripe-react-native';
 
-const PaymentComponent = () => {
+const PaymentComponent = ({total}) => {
     const [name,setName] = useState('');
-    const [amount,setAmount] = useState(400);
+    const [amount] = useState(total);
     const {initPaymentSheet,presentPaymentSheet} = useStripe();
 
     const subscribe = async () =>{
