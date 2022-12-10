@@ -3,18 +3,21 @@ import { View, Text,ActivityIndicator,StatusBar,StyleSheet,TouchableOpacity,Imag
 import axios from 'axios';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useDispatch } from 'react-redux';
+import { addProduct } from '../../redux/cartSlice';
 
 import colors from '../../colors';
+import { useNavigation } from '@react-navigation/native';
 
-const SingleProduct = ({route,navigation}) => {
+const SingleProduct = ({route}) => {
+  const navigation = useNavigation();
   const id = route.params.id;
   console.log(id);
   const dispatch = useDispatch();
   const [product,setProduct] = useState({});
   const [loading,setLoading] = useState(false);
+  const [quantity] = useState(1);
 
   const getProduct = async () =>{
-   
     try {
       setLoading(true)
       const res = await axios.get(`https://electronic-shop.onrender.com/api/products/${id}`);
@@ -25,7 +28,15 @@ const SingleProduct = ({route,navigation}) => {
     }
   }
 
-  console.log(product);
+  const addToCart = (product) =>{
+    // let quantity = quantity;
+    let total = product.price * quantity
+    let newProduct = {...product,quantity,total}
+    dispatch(addProduct(newProduct));
+    console.log("product added");
+    navigation.navigate('Main');
+
+  }
 
   useEffect(() =>{
     getProduct();
@@ -44,7 +55,7 @@ const SingleProduct = ({route,navigation}) => {
         <Image source={{uri:product?.image}} style={styles.image}  />
         <Text style={styles.title}>{product.title}</Text>
       <Text>{product.description}</Text>
-      <TouchableOpacity style={styles.button} >
+      <TouchableOpacity style={styles.button} onPress={() => addToCart(product)} >
         <Text style={styles.btnText}>Add to Cart</Text>
       </TouchableOpacity></>}
     </View>

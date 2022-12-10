@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { View, Text,TextInput,Button } from 'react-native';
+import { View, Text,TextInput,Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useStripe } from '@stripe/stripe-react-native';
 
@@ -34,17 +34,23 @@ const PaymentComponent = () => {
         placeholder='Your Name' 
         value={name} 
         onChangeText={(value) => setName(value)}
-        style={{
-            width:300,
-            fontSize:20,
-            padding:10,
-            borderWidth:1,
-            borderColor:'green'
-        }}
+        style={styles.TextInput}
          />
          <Button title="Checkout" variant="primary" onPress={subscribe} />
     </View>
   )
 }
 
-export default PaymentComponent
+export default PaymentComponent;
+
+const styles = StyleSheet.create({
+    TextInput:{
+        width:300,
+        fontSize:20,
+        padding:6,
+        borderWidth:1,
+        borderColor:'green',
+        marginBottom:10,
+        borderRadius:5
+    }
+});

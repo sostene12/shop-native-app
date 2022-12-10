@@ -3,6 +3,7 @@ import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 import { login } from '../redux/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Login = () => {
   const navigation = useNavigation();
@@ -10,16 +11,29 @@ const Login = () => {
   const [password,setPassword] = useState('');
   const {isFetching,error} = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const handleLogin = () =>{
+  const handleLogin = async () =>{
     const user = {
       username:email,
       password:password
     };
-    login(dispatch,user);
+    try {
+      const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login',user);
+      console.log(res.data);
+      // dispatch(loginSuccess(res.data));
+  } catch (error) {
+      console.log(error.message);
+      // dispatch(loginFailure())
+  }
+    // login(dispatch,user);
   }
   return (
     <View style={styles.container}>
         <Image source={require("../assets/iconbg.png")} resizeMode='cover' style={styles.image} />
+        {error && 
+        <View style={styles.errorContainer}>
+        <Text style={styles.error}>Invalid Credetials</Text>
+      </View>
+        }
       <Text style={styles.title}>Login</Text>
           <View>
             <Text style={styles.label}>email</Text>
@@ -116,6 +130,17 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'blue',
         textDecorationLine:'underline',
+      },
+      errorContainer:{
+        backgroundColor:'pink',
+        paddingHorizontal:10,
+        paddingVertical:5,
+        borderRadius:8
+      },
+      error:{
+        color:"white",
+        textAlign:'center',
+        fontWeight:'bold'
       }
      
 });
