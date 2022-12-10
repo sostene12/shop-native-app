@@ -37,9 +37,14 @@ const Home = ({navigation}) => {
     return !filtes.length? setFilterItems(allProducts) : setFilterItems(filtes) ;
   };
 
+  const searchProduct = (item) =>{
+    const search = allProducts.filter(product => product.title.toLowerCase().includes((item.toLowerCase())));
+    return !search.length ? setFilterItems(allProducts) : setFilterItems(search);
+  }
+
   useEffect(() =>{
     getAllProducts();
-  },[])
+  },[filteredItems])
   return (
     <View>
         <StatusBar 
@@ -49,14 +54,14 @@ const Home = ({navigation}) => {
         <View >
         <Header />
         <Navigation filteredItems={filteredItems} />
-        <Search />
+        <Search searchProduct={searchProduct} />
        
-        {loading ?  <ActivityIndicator size="large" color="#00ff00" />: (
+        {/* {loading && <ActivityIndicator size="large" color="#00ff00" />} */}
           <View style={styles.products}>
-          <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
+          <FlatList data={ filterItems.length != 0 ? filterItems : allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
             <Product item={item} navigation={navigation} />
           )} />
-        </View>)}
+        </View>
         
         </View>
     </View>

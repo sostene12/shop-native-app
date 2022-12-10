@@ -11,10 +11,10 @@ export const rootReducer = combineReducers({
 
 const cartItems = (state) => state.cart;
 
-export const itemsCount = createSelector([cartItems],cartItems.reduce((accumulator,cartItem) => cartItem,0))
+// export const itemsCount = createSelector([cartItems],cartItems.reduce((accumulator,cartItem) => cartItem,0))
 
-export const cartTotal = createSelector([cartItems], (cartItems) =>
-  cartItems.reduce(
-    (accumulator, cartItem) => accumulator + cartItem.quantity * cartItem.price,0
-  )
-);
+// export const cartTotal = createSelector([cartItems], (cartItems) =>
+//   cartItems.reduce(
+//     (accumulator, cartItem) => accumulator + cartItem.quantity * cartItem.price,0
+//   )
+// );
