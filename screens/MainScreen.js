@@ -31,6 +31,7 @@ const MainScreen = () => {
           initialRouteName="Home"
           
           screenOptions={({ route }) => ({
+            // tabBarLabelPosition:{{}},
             tabBarIcon: ({ focused, color, size }) => {
               let icon;
               let routeName = route.name;
@@ -74,6 +75,7 @@ const MainScreen = () => {
               backgroundColor: colors.green,
             },
           })}
+
         >
           <Tab.Screen name="Home" component={Home}   />
           <Tab.Screen name="Cart" component={Cart} />
