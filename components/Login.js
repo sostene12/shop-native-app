@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
+import { login } from '../redux/apiCalls';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Login = () => {
   const navigation = useNavigation();
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
-  const login = async () =>{
-    try {
-      const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login');
-      const data = res.data;
-    } catch (error) {
-      console.log(error)
-    }
+  const {isFetching,error} = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const handleLogin = () =>{
+    const user = {
+      username:email,
+      password:password
+    };
+    login(dispatch,user);
   }
   return (
     <View style={styles.container}>
         <Image source={require("../assets/iconbg.png")} resizeMode='cover' style={styles.image} />
+        {error && 
+        <View style={styles.errorContainer}>
+        <Text style={styles.error}>Invalid Credetials</Text>
+      </View>
+        }
       <Text style={styles.title}>Login</Text>
           <View>
             <Text style={styles.label}>email</Text>
@@ -41,7 +48,7 @@ const Login = () => {
             <Text style={styles.textForgot}>Forgot Password</Text>
           </View>
           <View style={styles.buttons}>
-            <TouchableOpacity style={styles.loginButton} onPress={() => login()}>
+            <TouchableOpacity style={styles.loginButton} onPress={() => handleLogin()}>
               <Text style={styles.login}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
@@ -114,6 +121,17 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'blue',
         textDecorationLine:'underline',
+      },
+      errorContainer:{
+        backgroundColor:'pink',
+        paddingHorizontal:10,
+        paddingVertical:5,
+        borderRadius:8
+      },
+      error:{
+        color:"white",
+        textAlign:'center',
+        fontWeight:'bold'
       }
      
 });

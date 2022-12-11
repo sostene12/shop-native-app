@@ -1,23 +1,25 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
 import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList,ActivityIndicator} from 'react-native';
-import LoaderKit from 'react-native-loader-kit';
-// import { SafeAreaView } from 'react-navigation';
+import { useNavigation } from '@react-navigation/native';
 
-import colors from '../colors';
+import colors from '../../colors';
 
-import Header from '../components/Header';
-import Navigation from '../components/Navigation';
-import Search from '../components/Search';
-import Product from "../components/Product";
+import Header from '../../components/Header';
+import Navigation from '../../components/Navigation';
+import Search from '../../components/Search';
+import Product from "../../components/Product";
 
 // SafeAreaView.setStatusBarHeight(0);
 
 
-const Home = ({navigation}) => {
+const Home = () => {
+  const navigation = useNavigation();
   const [allProducts,setAllProducts] = useState([]);
   const [filterItems,setFilterItems] = useState([]);
   const [loading,setLoading] = useState(false);
+
+
 
   const getAllProducts = async () =>{
   
@@ -37,9 +39,14 @@ const Home = ({navigation}) => {
     return !filtes.length? setFilterItems(allProducts) : setFilterItems(filtes) ;
   };
 
+  const searchProduct = (item) =>{
+    const search = allProducts.filter(product => product.title.toLowerCase().includes((item.toLowerCase())));
+    return !search.length ? setFilterItems(allProducts) : setFilterItems(search);
+  }
+
   useEffect(() =>{
     getAllProducts();
-  },[])
+  },[filteredItems])
   return (
     <View>
         <StatusBar 
@@ -49,14 +56,14 @@ const Home = ({navigation}) => {
         <View >
         <Header />
         <Navigation filteredItems={filteredItems} />
-        <Search />
+        <Search searchProduct={searchProduct} />
        
-        {loading ?  <ActivityIndicator size="large" color="#00ff00" />: (
+        {/* {loading && <ActivityIndicator size="large" color="#00ff00" />} */}
           <View style={styles.products}>
-          <FlatList data={allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
+          <FlatList data={ filterItems.length != 0 ? filterItems : allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
             <Product item={item} navigation={navigation} />
           )} />
-        </View>)}
+        </View>
         
         </View>
     </View>
