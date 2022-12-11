@@ -48,7 +48,7 @@ const Cart = () => {
           </View>
         
         </View>
-          <TouchableOpacity style={styles.payBtn} onPress={() => navigation.navigate('Payment',{total:calculateTotal})}>
+          <TouchableOpacity style={styles.payBtn} onPress={() => navigation.navigate('Payment',{total:calculateTotal,cart:cart})}>
             <Text>Pay Now</Text>
           </TouchableOpacity>
           </>
