@@ -58,13 +58,12 @@ const Home = () => {
         <Navigation filteredItems={filteredItems} />
         <Search searchProduct={searchProduct} />
        
-        {/* {loading && <ActivityIndicator size="large" color="#00ff00" />} */}
-          <View style={styles.products}>
-          <FlatList data={ filterItems.length != 0 ? filterItems : allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
-            <Product item={item} navigation={navigation} />
-          )} />
-        </View>
-        
+        {/* {loading ? <ActivityIndicator size="large" color="#00ff00" /> : ( */}
+            <View style={styles.products}>
+            <FlatList data={ filterItems.length != 0 ? filterItems : allProducts} keyExtractor={(item) => item.id} renderItem={({item}) => (
+              <Product item={item} navigation={navigation} />
+            )} />
+          </View>
         </View>
     </View>
   )

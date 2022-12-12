@@ -3,7 +3,7 @@ import { View, Text,TextInput,Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useStripe } from '@stripe/stripe-react-native';
 
-const PaymentComponent = ({total}) => {
+const PaymentComponent = ({total,products}) => {
     const [name,setName] = useState('');
     const [amount] = useState(total);
     const {initPaymentSheet,presentPaymentSheet} = useStripe();
@@ -24,6 +24,14 @@ const PaymentComponent = ({total}) => {
             if(initSheet.error) return Alert.alert(initSheet.error.message);
             const openPaymentSheet = await presentPaymentSheet({clientSecret});
             if(openPaymentSheet.error) return Alert.alert(openPaymentSheet.error.message);
+            const order = await axios.post("https://electronic-shop.onrender.com/api/orders/create",
+            {
+                products:products,
+                amount:amount
+            }
+            );
+            const ordersData = order.data;
+            console.log(ordersData)
         } catch (error) {
             console.log(error.message);
         }

@@ -7,6 +7,7 @@ import PaymentComponent from '../../components/PaymentComponent';
 
 const Payment = ({route}) => {
   const total = route.params.total;
+  const products = route.params.cart;
 
   return (
     <View style={styles.container}>
@@ -14,7 +15,7 @@ const Payment = ({route}) => {
       <StripeProvider
       publishableKey={PUBLISHABLE_KEY}
       merchantIdentifier={`merchant.com.Native`}>
-        <PaymentComponent total={total} />
+        <PaymentComponent total={total} products={products} />
       </StripeProvider>
     </View>
   )
