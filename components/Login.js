@@ -3,19 +3,25 @@ import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 import { login } from '../redux/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
-const Login = () => {
+const Login = () =>  {
   const navigation = useNavigation();
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const {isFetching,error} = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const handleLogin = () =>{
+  const handleLogin = async () =>{
     const user = {
       username:email,
       password:password
     };
-    login(dispatch,user);
+    const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login',user);
+    const {firstName,accessToken} = res.data;
+    await AsyncStorage.setItem('name',firstName);
+    await AsyncStorage.setItem('token',accessToken);
+    navigation.navigate("Home");
   }
   return (
     <View style={styles.container}>
@@ -41,6 +47,7 @@ const Login = () => {
             style={styles.input}
              placeholder='Password'
              value={password}
+             secureTextEntry={true}
              onChangeText={(value) => setPassword(value)}
               />
           </View>
