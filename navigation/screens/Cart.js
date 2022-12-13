@@ -1,28 +1,32 @@
-import React from 'react';
-import { View, Text, StyleSheet, Platform, StatusBar,SafeAreaView,Image,TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Platform, StatusBar,SafeAreaView,Image,TouchableOpacity, FlatList } from 'react-native';
 
 import { useSelector } from 'react-redux';
 import colors from '../../colors';
 
 import { useNavigation } from '@react-navigation/native';
-import {selectCartTotal,selectCartItems,SelectCart} from "../../redux/cart/cartSelector"
+import Header from '../../components/Header';
+import CartItem from '../../components/CartItem';
 
 
 const Cart = () => {
   const navigation = useNavigation();
   const cart = useSelector(state=> state.cart);
+  const [qty,setQty] = useState(cart.quantity);
   console.log(cart);
 
   const calculateTotal = cart.reduce((accumulator,product) => accumulator+product.quantity* product.price,0);
   console.log("calculateTotal",calculateTotal);
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
+    <View style={styles.mainContainer}>
         <StatusBar
         barStyle='dark-content'
         backgroundColor='green'
-         />
+        />
+         <Header />
+         <View style={styles.container}>
+        {/* <SafeAreaView> */}
         <Text style={styles.cartTitle}>Cart</Text>
         {!cart.length ? <View ><Text style={styles.noCart}>There is No items in the cart!</Text></View> : (
           <>
@@ -31,16 +35,10 @@ const Cart = () => {
               <Text style={{fontWeight:'bold'}}>Img</Text>
               <Text style={{fontWeight:'bold'}}>Name</Text>
               <Text style={{fontWeight:'bold'}}>Price</Text>
-              <Text style={{fontWeight:'bold'}}>Qty</Text>
             </View>
-          {cart.map(product => (
-            <View style={styles.product}>
-              <Image source={{uri:product.image}} resizeMode="contain" style={{width:50,height:50}} />
-              <Text>{product.title}</Text>
-              <Text>${product.price}</Text>
-               <Text> {product.quantity}</Text>
-            </View>
-          ))}
+            <FlatList data={cart} keyExtractor={(item) => item.id} renderItem={({item}) => (
+              <CartItem product={item} />
+            )} />
 
           <View style={styles.total}>
             <Text style={{fontWeight:"bold"}}>Total:</Text>
@@ -54,7 +52,8 @@ const Cart = () => {
           </>
         ) }
         
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
+      </View>
     </View>
   )
 }
@@ -62,15 +61,18 @@ const Cart = () => {
 export default Cart;
 
 const styles = StyleSheet.create({
+  mainContainer:{
+    flex:1
+  },
   noCart:{
     textAlign:'center',
     padding:20,
     fontWeight:"bold"
   },
   container:{
-    paddingHorizontal:25,
+    paddingHorizontal:15,
     paddingVertical:20,
-    flex:1
+    flex:1,
   },
   cartTitle:{
     fontWeight:'bold',
@@ -82,7 +84,8 @@ const styles = StyleSheet.create({
   product:{
     flexDirection:'row',
     alignItems:"center",
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    
   },
   payBtn:{
     backgroundColor:colors.green,
@@ -101,5 +104,22 @@ const styles = StyleSheet.create({
   total:{
     flexDirection:'row',
     justifyContent:"space-between"
+  },
+  quantity:{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    width:"80%",
+    alignSelf:"center"
+  },
+  qtyValue:{
+    flexDirection:"row",
+    alignItems:'center',
+    justifyContent:'space-around',
+    width:"50%"
+  },
+  icon:{
+    color:"white",
+    backgroundColor:"green",
+    borderRadius:30
   }
 })
