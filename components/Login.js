@@ -70,14 +70,14 @@ const Login = () =>  {
       {
         token !=null ? (
           <SafeAreaView>
-        <View style={styles.profile}>
           <View >
-            <Text>Your Profile</Text>
-          </View>
+            <Text style={styles.profilTitle}>Your Profile</Text>
+         </View>
+         <View style={styles.profile}>
           <View>
-            <Text>{lastName}</Text>
-            <Text>{firstName}</Text>
-            <Text>{email}</Text>
+            <Text style={styles.profilContent}>Frist Name: {lastName}</Text>
+            <Text style={styles.profilContent}>Last Name: {firstName}</Text>
+            <Text style={styles.profilContent}>Email: {myEmail}</Text>
 
           </View>
         </View>
@@ -213,10 +213,24 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flex:1,
-        backgroundColor:"red",
         marginVertical:50,
         width:"90%",
-        alignSelf:'center'
+        alignSelf:'center',
+        borderRadius:'20%',
+        padding:10,
+        backgroundColor:'#CFDFAF'
+      },
+      profilTitle:{
+        fontSize:32,
+        fontWeight:'bold',
+        borderColor:'none',
+        marginTop:'60%',
+        marginBottom:-40,
+        marginLeft:25,
+      },
+      profilContent:{
+        fontSize:20,
+        padding:5,
       }
      
 });
