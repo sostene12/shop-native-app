@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { login } from '../redux/apiCalls';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
