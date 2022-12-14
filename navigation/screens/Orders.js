@@ -37,7 +37,11 @@ const Orders = () => {
                 <Text style={{fontWeight:'bold',fontSize:18}} >Total</Text>
             </View>
         </View>
-      <FlatList data={orders} keyExtractor={(item) => item._id} renderItem={({item}) => <OrderComponent order={item} />} />
+        {orders.length > 0 ? (
+          <FlatList data={orders} keyExtractor={(item) => item._id} renderItem={({item}) => <OrderComponent order={item} />} />
+        ):<View style={styles.noOrder}>
+            <Text style={styles.orderText}>You have No Orders Yet</Text>
+          </View>}
       </View>
     </View>
   )
@@ -75,4 +79,12 @@ secondContainer:{
   width:'40%',
   justifyContent:'space-between'
 },
+noOrder:{
+  padding:10,
+  marginTop:10
+},
+orderText:{
+  fontWeight:'bold',
+  fontSize:20
+}
 });

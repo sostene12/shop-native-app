@@ -47,7 +47,11 @@ const SingleProduct = ({route}) => {
        <StatusBar
         hidden
         />
-        {loading ? <ActivityIndicator size="large" color="#00ff00" /> : 
+        {loading ?
+        <View style={{flex:1,justifyContent:'center'}}>
+          <ActivityIndicator size="large" color="#00ff00" style={{justifyContent:'center',alignSelf:'center'}} />
+        </View>
+          : 
         <>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name='chevron-back-circle-sharp' size={30}  color={colors.green} />

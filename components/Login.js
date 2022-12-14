@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image,ScrollView,KeyboardAvoidingView, ActivityIndicator } from 'react-native';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image,ScrollView,KeyboardAvoidingView, ActivityIndicator, SafeAreaView } from 'react-native';
 import { useNavigation,useIsFocused } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
@@ -68,9 +68,21 @@ const Login = () =>  {
     <ScrollView>
       <KeyboardAvoidingView behavior={Platform.OS=='ios'?'padding':null}>
       {
-        token !=null ? (<View >
-            <Text>Hello</Text>
-        </View>) :(
+        token !=null ? (
+          <SafeAreaView>
+        <View style={styles.profile}>
+          <View >
+            <Text>Your Profile</Text>
+          </View>
+          <View>
+            <Text>{lastName}</Text>
+            <Text>{firstName}</Text>
+            <Text>{email}</Text>
+
+          </View>
+        </View>
+        </SafeAreaView>
+        ) :(
          <View style={styles.container}>
    
          <TouchableOpacity onPress={() => navigation.goBack()} style={{alignSelf:'flex-start'}}>
@@ -196,6 +208,15 @@ const styles = StyleSheet.create({
         color:"white",
         textAlign:'center',
         fontWeight:'bold'
+      },
+      profile:{
+        justifyContent:'center',
+        alignItems:'center',
+        flex:1,
+        backgroundColor:"red",
+        marginVertical:50,
+        width:"90%",
+        alignSelf:'center'
       }
      
 });
