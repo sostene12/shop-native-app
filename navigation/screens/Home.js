@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import axios from 'axios';
-import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList,ActivityIndicator} from 'react-native';
+import { View ,SafeAreaView,StatusBar, StyleSheet,Platform,FlatList,ActivityIndicator, AsyncStorage} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import colors from '../../colors';
@@ -18,7 +18,6 @@ const Home = () => {
   const [allProducts,setAllProducts] = useState([]);
   const [filterItems,setFilterItems] = useState([]);
   const [loading,setLoading] = useState(false);
-
 
 
   const getAllProducts = async () =>{
@@ -54,7 +53,7 @@ const Home = () => {
         backgroundColor={colors.green}
           /> 
         <View >
-        <Header />
+        <Header/>
         <Navigation filteredItems={filteredItems} />
         <Search searchProduct={searchProduct} />
        

@@ -1,11 +1,26 @@
-import { View, Text, StyleSheet,Image,Platform,StatusBar } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet,Image,Platform,StatusBar,AsyncStorage } from 'react-native';
+import React,{useState,useEffect} from 'react';
 
 import colors from '../colors';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
     const user = useSelector(state => state.user.currentUser);
+    const [name,setName] = useState('');
+    const getName = async () =>{
+      try {
+        const name = await AsyncStorage.getItem('name');
+        console.log(name);
+        setName(name);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    useEffect(() =>{
+        getName();
+    },[]);
+  
   return (
     <View style={styles.container}> 
         <View>
@@ -13,7 +28,7 @@ const Header = () => {
             <Text style={styles.title}>Hi 👋, Welcome to our shop 🥰</Text>
         </View>
         <View style={styles.profileContainer}>
-            {user && <Text style={styles.username}>{user.lastName}</Text>}
+            {name && <Text style={styles.username}>{name}</Text>}
             <Image source={require("../assets/avatar.png")} resizeMode="cover" style={styles.profile} />
         </View>
     </View>
