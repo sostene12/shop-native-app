@@ -1,9 +1,14 @@
-import React,{useState} from 'react';
-import { View, Text,TextInput,Button, StyleSheet } from 'react-native';
+import React,{useEffect, useState} from 'react';
+import { View, Text,TextInput,Button, StyleSheet ,TouchableOpacity, AsyncStorage} from 'react-native';
 import axios from 'axios';
 import { useStripe } from '@stripe/stripe-react-native';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import colors from '../colors';
+import { useNavigation,useIsFocused } from '@react-navigation/native';
 
 const PaymentComponent = ({total,products}) => {
+    const isFocused = useIsFocused();
+    const navigation = useNavigation();
     const [name,setName] = useState('');
     const [amount] = useState(total);
     const {initPaymentSheet,presentPaymentSheet} = useStripe();
@@ -35,16 +40,31 @@ const PaymentComponent = ({total,products}) => {
         } catch (error) {
             console.log(error.message);
         }
+    };
+
+    const getName = async () =>{
+        const name = await AsyncStorage.getItem('name');
+        setName(name);
     }
+
+    useEffect(() =>{
+        getName();
+    },[isFocused])
+
   return (
-    <View>
+    <View style={styles.container}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton} >
+               <Ionicons name='chevron-back-circle-sharp' size={30}  color={colors.green} />
+             </TouchableOpacity>
         <TextInput 
         placeholder='Your Name' 
         value={name} 
         onChangeText={(value) => setName(value)}
         style={styles.TextInput}
          />
-         <Button title="Checkout" variant="primary" onPress={subscribe} />
+         <TouchableOpacity onPress={() => subscribe()} style={styles.payButton}>
+            <Text style={styles.payText}>Checkout</Text>
+         </TouchableOpacity>
     </View>
   )
 }
@@ -52,6 +72,13 @@ const PaymentComponent = ({total,products}) => {
 export default PaymentComponent;
 
 const styles = StyleSheet.create({
+    container:{
+        marginTop:30,
+    },
+    backButton:{
+        alignSelf:'flex-start',
+        marginBottom:20
+    },
     TextInput:{
         width:300,
         fontSize:20,
@@ -59,6 +86,20 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderColor:'green',
         marginBottom:10,
-        borderRadius:5
+        borderRadius:5,
+        alignSelf:'center'
+    },
+    payButton:{
+        backgroundColor:colors.green,
+        paddingVertical:10,
+        width:"50%",
+        alignSelf:'center',
+    },
+    payText:{
+        textAlign:'center',
+        fontSize:20,
+        fontWeight:'bold',
+        color:colors.white,
+        textTransform:'uppercase'
     }
 });
