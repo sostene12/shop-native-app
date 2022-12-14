@@ -3,9 +3,10 @@ import React,{useState,useEffect} from 'react';
 
 import colors from '../colors';
 import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 const Header = () => {
+    const isFocused = useIsFocused();
     const navigation = useNavigation();
     const user = useSelector(state => state.user.currentUser);
     const [name,setName] = useState('');
@@ -24,7 +25,7 @@ const Header = () => {
 
     useEffect(() =>{
         getName();
-    },[]);
+    },[isFocused]);
   
   return (
     <View style={styles.container}> 

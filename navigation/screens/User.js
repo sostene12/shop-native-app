@@ -4,15 +4,24 @@ import { AsyncStorage } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from "../../colors";
-import { useSelector } from "react-redux";
 
 const User = () => {
   const navigation = useNavigation();
-  const user= useSelector(state => state.user.currentUser);
-  const [customer,setCustomer] = useState({})
-  if(user != null){
-    setCustomer(...user);
-  }
+  const [name, setName] = useState("");
+  const getName = async () => {
+    const name = await AsyncStorage.getItem("name");
+    setName(name);
+  };
+  console.log(name);
+
+  const logout = async () => {
+    await AsyncStorage.clear();
+    navigation.navigate("Home");
+  };
+
+  useEffect(() => {
+    getName();
+  }, []);
   return (
     <SafeAreaView>
       <View>
@@ -27,19 +36,10 @@ const User = () => {
           />
         </TouchableOpacity>
         <View>
-          {
-            customer.length > 0 && (
-              <>
-               <Text>{customer.lastName}</Text>
-              <Text>{customer.FirstName}</Text>
-              </>
-             
-            )
-          }
-       
+          <Text>{name}</Text>
         </View>
       </View>
-      <Button title="Logout" />
+      <Button title="Logout" onPress={logout} />
     </SafeAreaView>
   );
 };
