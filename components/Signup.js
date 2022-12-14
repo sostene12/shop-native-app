@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image,KeyboardAvoidingView,ScrollView,Platform, ActivityIndicator } from 'react-native';
 import ToastManager, { Toast } from "toastify-react-native";
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import colors from '../colors';
 
 const Signup = () => {
   const navigation = useNavigation()
@@ -10,20 +12,26 @@ const [firstName,setFirstName] = useState('');
 const [lastName,setLastName] = useState('');
 const [email,setEmail] = useState('');
 const [password,setPassword] = useState('');
+const [Loading,setLoading] = useState(false);
 
 const role = "client"
 const data = {firstName,lastName,email,password,role}
 
 const register = async() =>{
   try {
+    setLoading(true);
     const res = await axios.post('https://electronic-shop.onrender.com/api/auth/signup',data);
     console.log(res.data);
     setFirstName('');
     setLastName('');
     setEmail('');
     setPassword('');
+    setLoading(false);
+    showToast();
+    navigation.navigate("Signup");
   } catch (error) {
     console.log(error.message);
+    setLoading(false)
   }
 };
 
@@ -31,11 +39,16 @@ const register = async() =>{
     Toast.success('please check your email to verify.','top');
   }
   return (
+    <ScrollView>
     <View style={styles.container}>
       <View style={styles.toast}>
         <ToastManager style={{width:"100%",}} />
       </View>
+      <TouchableOpacity onPress={() => navigation.goBack()} style={{alignSelf:'flex-start'}}>
+          <Ionicons name='chevron-back-circle-sharp' size={30}  color={colors.green} />
+        </TouchableOpacity>
       <Image source={require("../assets/iconbg.png")} resizeMode='cover' style={styles.image} />
+      <KeyboardAvoidingView behavior={Platform.OS=='ios'?'padding':null}>
       <Text style={styles.title}>SignUp</Text>
           <View>
             <Text style={styles.label}>First Name</Text>
@@ -70,13 +83,15 @@ const register = async() =>{
           
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.signupButton} onPress={() => register()}>
-              <Text style={styles.signup}>Signup</Text>
+              <Text style={styles.signup}>{Loading ? <ActivityIndicator size='small' /> : 'Signup'}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.login}>Login</Text>
             </TouchableOpacity>
           </View>
+          </KeyboardAvoidingView>
     </View>
+    </ScrollView>
   )
 }
 
@@ -93,7 +108,9 @@ const styles = StyleSheet.create({
     flex:1,
     width:"80%",
     alignSelf:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    alignItems:"center",
+    marginTop:100
   },
   image:{
     width:80,
@@ -111,10 +128,11 @@ const styles = StyleSheet.create({
         paddingVertical:3
       },
       input:{
-        paddingVertical:4,
+        paddingVertical:Platform.OS=='ios'?10:4,
         borderColor:'green',
         borderWidth:1,
         paddingHorizontal:8,
+        width:Platform.OS=='ios'?300:'100%'
       },
       buttons:{
         flexDirection:'row',

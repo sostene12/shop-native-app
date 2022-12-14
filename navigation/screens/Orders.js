@@ -4,6 +4,7 @@ import axios from 'axios'
 import Header from '../../components/Header';
 import colors from '../../colors';
 import OrderComponent from '../../components/OrderComponent';
+import { useSelector } from 'react-redux';
 
 const Orders = () => {
   const [orders,setOrders] = useState([]);
@@ -26,6 +27,16 @@ const Orders = () => {
       <Header />
       <View style={styles.ordersContainer}>
       <Text style={styles.title}>Orders</Text>
+      <View style={styles.titleContainer}>
+            <View style={styles.firstContainer}>
+                <Text style={{fontWeight:'bold',fontSize:18}}>Title</Text>
+                <Text style={{fontWeight:'bold',fontSize:18}}>quantity</Text>
+            </View>
+            <View style={styles.secondContainer}>
+                <Text style={{fontWeight:'bold',fontSize:18}}>Status</Text>
+                <Text style={{fontWeight:'bold',fontSize:18}} >Total</Text>
+            </View>
+        </View>
       <FlatList data={orders} keyExtractor={(item) => item._id} renderItem={({item}) => <OrderComponent order={item} />} />
       </View>
     </View>
@@ -47,5 +58,21 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     textTransform:'uppercase',
     paddingBottom:10
-  }
+  },
+  titleContainer:{
+    flexDirection:'row',
+    justifyContent:'space-between',
+    width:"100%",
+},
+firstContainer:{
+  flexDirection:'row',
+  justifyContent:'space-between',
+  width:"55%"
+},
+secondContainer:{
+  flexDirection:'row',
+  paddingBottom:5,
+  width:'40%',
+  justifyContent:'space-between'
+},
 });

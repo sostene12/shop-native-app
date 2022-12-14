@@ -8,6 +8,7 @@ import Login from '../components/Login';
 import Signup from '../components/Signup';
 import SingleProduct from './screens/SingleProduct';
 import Payment from './screens/Payment';
+import User from './screens/User';
 
 
 
@@ -22,6 +23,7 @@ const AllScreens = () => {
             <Stack.Screen name="Payment" component={Payment} options={{headerShown:false}} />
             <Stack.Screen name="Signup" component={Signup} options={{headerShown:false}} />
             <Stack.Screen name="Product" component={SingleProduct} options={{headerShown:false}} />
+            <Stack.Screen name="User" component={User} options={{headerShown:false}} />
         </Stack.Navigator>
     </NavigationContainer>
   )

@@ -1,29 +1,46 @@
 import React, { useState } from 'react';
-import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
+import { View, Text,StyleSheet,TextInput,TouchableOpacity,Image,ScrollView,KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import colors from '../colors';
 
 const Login = () =>  {
   const navigation = useNavigation();
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const {isFetching,error} = useSelector(state => state.user);
+  const [Loading,setLoading] = useState(false)
   const dispatch = useDispatch();
   const handleLogin = async () =>{
     const user = {
       username:email,
       password:password
     };
+   try {
+    setLoading(true);
     const res = await axios.post('https://electronic-shop.onrender.com/api/auth/login',user);
     const {firstName,accessToken} = res.data;
     await AsyncStorage.setItem('name',firstName);
     await AsyncStorage.setItem('token',accessToken);
+    setEmail(''),
+    setPassword('');
+    setLoading(false);
     navigation.navigate("Home");
+   } catch (error) {
+    console.log(error);
+    setLoading(false)
+   }
   }
   return (
+    <ScrollView>
+      <KeyboardAvoidingView behavior={Platform.OS=='ios'?'padding':null}>
     <View style={styles.container}>
+    <TouchableOpacity onPress={() => navigation.goBack()} style={{alignSelf:'flex-start'}}>
+          <Ionicons name='chevron-back-circle-sharp' size={30}  color={colors.green} />
+        </TouchableOpacity>
         <Image source={require("../assets/iconbg.png")} resizeMode='cover' style={styles.image} />
         {error && 
         <View style={styles.errorContainer}>
@@ -55,7 +72,7 @@ const Login = () =>  {
           </View>
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.loginButton} onPress={() => handleLogin()}>
-              <Text style={styles.login}>Login</Text>
+              <Text style={styles.login}>{Loading ? <ActivityIndicator size='small' /> :"Login" }</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                <Text style={styles.Signup}>Signup</Text>
@@ -63,6 +80,8 @@ const Login = () =>  {
           </View>
          
     </View>
+    </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
@@ -75,7 +94,8 @@ const styles = StyleSheet.create({
     flex:1,
     width:"80%",
     alignSelf:'center',
-    justifyContent:'center'
+    justifyContent:'center',
+    marginTop:100
   },
   image:{
     width:80,
@@ -113,7 +133,7 @@ const styles = StyleSheet.create({
       },
       loginButton:{
         backgroundColor:'green',
-        paddingVertical:5,
+        paddingVertical:8,
         paddingHorizontal:35,
         borderRadius:8
       },

@@ -1,15 +1,20 @@
-import { View, Text, StyleSheet,Image,Platform,StatusBar,AsyncStorage } from 'react-native';
+import { View, Text, StyleSheet,Image,Platform,StatusBar,AsyncStorage,TouchableOpacity } from 'react-native';
 import React,{useState,useEffect} from 'react';
 
 import colors from '../colors';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const Header = () => {
+    const navigation = useNavigation();
     const user = useSelector(state => state.user.currentUser);
     const [name,setName] = useState('');
+    const [token,setToken] = useState(null);
     const getName = async () =>{
       try {
         const name = await AsyncStorage.getItem('name');
+        const token = await AsyncStorage.getItem('token');
+        setToken(token)
         console.log(name);
         setName(name);
       } catch (error) {
@@ -29,7 +34,9 @@ const Header = () => {
         </View>
         <View style={styles.profileContainer}>
             {name && <Text style={styles.username}>{name}</Text>}
-            <Image source={require("../assets/avatar.png")} resizeMode="cover" style={styles.profile} />
+            <TouchableOpacity onPress={() => token !=null? navigation.navigate("User") : navigation.navigate('Home')}>
+                <Image source={require("../assets/avatar.png")} resizeMode="cover" style={styles.profile} />
+            </TouchableOpacity>
         </View>
     </View>
   )
