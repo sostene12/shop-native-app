@@ -5,8 +5,11 @@ import { useStripe } from '@stripe/stripe-react-native';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from '../colors';
 import { useNavigation,useIsFocused } from '@react-navigation/native';
+import { clearCart } from '../redux/cart/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const PaymentComponent = ({total,products}) => {
+    const dispatch = useDispatch();
     const isFocused = useIsFocused();
     const navigation = useNavigation();
     const [name,setName] = useState('');
@@ -37,6 +40,7 @@ const PaymentComponent = ({total,products}) => {
             );
             const ordersData = order.data;
             console.log(ordersData)
+            dispatch(clearCart());
         } catch (error) {
             console.log(error.message);
         }

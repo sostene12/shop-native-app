@@ -7,11 +7,14 @@ const cartSlice = createSlice({
     reducers:{
         addProduct:(state,action) =>addItemsToCart(state,action.payload),
         changeQty:(state,action) => changeItemQty(state,action.payload),
+        clearCart:(state) =>{
+            state.cart = [];
+        },
         removeProduct:(state,action) =>{
             state.pop(action.payload);
         }
     }
 });
 
-export const {addProduct,removeProduct,changeQty} = cartSlice.actions;
+export const {addProduct,removeProduct,changeQty,clearCart} = cartSlice.actions;
 export default cartSlice.reducer;

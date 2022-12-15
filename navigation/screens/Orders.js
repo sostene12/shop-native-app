@@ -5,8 +5,10 @@ import Header from '../../components/Header';
 import colors from '../../colors';
 import OrderComponent from '../../components/OrderComponent';
 import { useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 
 const Orders = () => {
+  const isFocused = useIsFocused();
   const [orders,setOrders] = useState([]);
   const getAllOrders = async () =>{
     try {
@@ -20,7 +22,7 @@ const Orders = () => {
 
   useEffect(() =>{
     getAllOrders();
-  },[]);
+  },[isFocused]);
 
   return (
     <View style={styles.container}>
