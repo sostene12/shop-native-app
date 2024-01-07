@@ -4,10 +4,10 @@
     "slug": "Native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/iconbg.png",
+    "icon": "./app/assets/iconbg.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/iconbg.png",
+      "image": "./app/assets/iconbg.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -22,12 +22,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/iconbg.png",
+        "foregroundImage": "./app/assets/iconbg.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/iconbg.png"
+      "favicon": "./app/assets/iconbg.png"
     }
   }
 }
